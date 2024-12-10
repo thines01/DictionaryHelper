@@ -17,10 +17,8 @@ namespace DictionaryHelper
       /// <param name="dic">Dictionary to be modified with target keys and values</param>
       public static void
          ToSafeDictionary<TKey, TValue>
-         (this IEnumerable<TValue> lst, Func<TValue, TKey> keySelector, Dictionary<TKey, TValue> dic)
-      {
-         lst.GroupBy(keySelector).ToList().ForEach(grp => dic.Add(grp.Key, grp.First()));
-      }
+         (this IEnumerable<TValue> lst, Func<TValue, TKey> keySelector, ref Dictionary<TKey, TValue> dic)
+         => dic = ToSafeDictionary(lst, keySelector);
 
       /// <summary>
       /// Returns a dictionary based on the IEnumerable and key generator provided.
@@ -34,8 +32,6 @@ namespace DictionaryHelper
       public static Dictionary<TKey, TValue>
          ToSafeDictionary<TKey, TValue>
          (this IEnumerable<TValue> lst, Func<TValue, TKey> keySelector)
-      {
-         return lst.GroupBy(keySelector).ToDictionary(grp => grp.Key, grp => grp.First());
-      }
+         => lst.GroupBy(keySelector).ToDictionary(grp => grp.Key, grp => grp.First());
    }
 }

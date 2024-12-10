@@ -19,8 +19,6 @@ namespace DictionaryHelper
       /// <param name="item">item sought</param>
       /// <returns>The value of the type returned by the Dictionary or the default.</returns>
       public static Tv EnsuredValue<T, Tk, Tv>(this T source, Tk item) where T: Dictionary<Tk, Tv>
-      {
-         return (source.ContainsKey(item) ? source[item] : default(Tv));
-      }
+      => (source.ContainsKey(item) ? source[item] : default);
    }
 }
