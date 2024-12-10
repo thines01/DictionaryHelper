@@ -33,5 +33,18 @@ namespace DictionaryHelper
          ToSafeDictionary<TKey, TValue>
          (this IEnumerable<TValue> lst, Func<TValue, TKey> keySelector)
          => lst.GroupBy(keySelector).ToDictionary(grp => grp.Key, grp => grp.First());
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <typeparam name="TKey"></typeparam>
+      /// <typeparam name="TValue"></typeparam>
+      /// <param name="lst">A collection of </param>
+      /// <returns>Dictionary</returns>
+      public static Dictionary<TKey, TValue>
+         ToSafeDictionary<TKey, TValue>
+         (this IEnumerable<KeyValuePair<TKey, TValue>> lst)
+         => lst.ToLookup(k => k.Key, v => v.Value)
+            .ToDictionary(k => k.Key, v => v.First());
    }
 }
